@@ -48,6 +48,18 @@ const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(
     Cookies.get("cart") ? JSON.parse(Cookies.get("cart")) : []
   );
+
+  const [shippingAddress, setShippingAddress] = useState(
+    Cookies.get("shippingAdrress")
+      ? JSON.parse(Cookies.get("shippingAddress"))
+      : {}
+  );
+
+  const [paymentInformation, setPaymentInformation] = useState(
+    Cookies.get("paymentInformation")
+      ? JSON.parse(Cookies.get("paymentInformation"))
+      : {}
+  );
   const [itemAmount, setItemAmount] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -167,6 +179,10 @@ const CartProvider = ({ children }) => {
         handleAmountChange,
         itemAmount,
         total,
+        shippingAddress,
+        setShippingAddress,
+        paymentInformation,
+        setPaymentInformation,
       }}
     >
       {children}

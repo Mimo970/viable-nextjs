@@ -37,7 +37,7 @@ const Cart = () => {
     if (savedCart) {
       setAllCartItems(JSON.parse(savedCart));
     }
-  }, []);
+  }, [cart]);
 
   const cartItems = allCartItems.map((item) => (
     <div
