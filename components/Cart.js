@@ -41,15 +41,15 @@ const Cart = () => {
     }
   }, [cart]);
 
-  const createCheckoutSession = async () => {
-    axios
-      .post("api/checkout_sessions", { cart })
-      .then((res) => {
-        console.log(res);
-        window.location = res.data.sessionURL;
-      })
-      .catch((err) => console.log(err));
-  };
+  // const createCheckoutSession = async () => {
+  //   axios
+  //     .post("api/checkout_sessions", { cart })
+  //     .then((res) => {
+  //       console.log(res);
+  //       window.location = res.data.sessionURL;
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const cartItems = allCartItems.map((item) => (
     <div
@@ -122,29 +122,18 @@ const Cart = () => {
             </div>
 
             <div className="text-white">
-              <button
+              {/* <button
                 onClick={createCheckoutSession}
-                // onClick={() => {
-                //   checkout({
-                //     lineItems: [
-                //       {
-                //         price: "price_1MK1QMAdINrYSILj55zIgAR9",
-                //         quantity: 1,
-                //       },
-                //     ],
-                //   });
-                // }}
-                // href={"/shipping"}
                 className="no-underline bg-[#009BF9] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
               >
                 Proceed to checkout
-              </button>
-              {/* <Link
+              </button> */}
+              <Link
                 href={"/shipping"}
                 className="no-underline bg-[#009BF9] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
               >
-                Proceed to checkout
-              </Link> */}
+                Proceed to shipping
+              </Link>
             </div>
           </div>
         </div>

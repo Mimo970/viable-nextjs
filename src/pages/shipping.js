@@ -30,7 +30,7 @@ const ShippingAddressForm = () => {
     event.preventDefault();
     setShippingAddress(formData);
     Cookies.set("shippingAddress", JSON.stringify(formData));
-    router.push("/payment");
+    router.push("/order");
     // console.log(formData); // do something with the form data
   }
   // console.log(shippingAddress);
@@ -54,7 +54,7 @@ const ShippingAddressForm = () => {
               <Breadcrumb.Item href="/cart">Cart</Breadcrumb.Item>
               <Breadcrumb.Item active>Shipping</Breadcrumb.Item>
 
-              <Breadcrumb.Item href="/payment">Payment</Breadcrumb.Item>
+              {/* <Breadcrumb.Item href="/payment">Payment</Breadcrumb.Item> */}
               <Breadcrumb.Item href="/order">Order</Breadcrumb.Item>
             </Breadcrumb>
           </div>

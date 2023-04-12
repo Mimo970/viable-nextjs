@@ -1,27 +1,32 @@
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_API_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
+  const orderId = req.body.orderId;
   if (req.method === "POST") {
     const items = req.body.cart;
+
     console.log(items);
     const transformedItems = items.map((item) => ({
       price_data: {
         currency: "usd",
         product_data: {
-          name: item.name,
-          images: [req.headers.origin + item.image],
+          name: item.title || "",
+          images: [item.images[0]],
         },
         unit_amount: item.price * 100,
       },
-      quantity: item.quantity,
+      quantity: item.amount,
     }));
+
+    console.log(transformedItems);
 
     try {
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
         line_items: transformedItems,
+        // line_items[0],[price_data],[product_data],[name]
         mode: "payment",
-        success_url: `${req.headers.origin}/success`,
+        success_url: `${req.headers.origin}/orderDetails/${orderId}`,
         cancel_url: `${req.headers.origin}/`,
       });
       res.json({ sessionURL: session.url });
