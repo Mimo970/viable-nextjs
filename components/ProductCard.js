@@ -7,6 +7,7 @@ import { AiOutlineHeart, AiFillHeart, AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import { Rating } from "@mui/material";
 import { CartContext } from "../contexts/CartContext";
+import { Toaster } from "react-hot-toast";
 
 const ProductCard = ({ product, addToCartHandler }) => {
   const addToFavorites = (e) => {};
@@ -25,12 +26,38 @@ const ProductCard = ({ product, addToCartHandler }) => {
   //   dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
   // };
   const { cart, addToCart } = useContext(CartContext);
-  console.log(cart);
+  // console.log(cart);
 
   return (
     <>
-      <div className="max-w-xs min-h-full rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-        <div className=" relative overflow-hidden">
+      <Toaster
+        // position="top-right"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          style: {
+            // background: "#657786",
+            // color: "#1DA1F2",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "green",
+            },
+          },
+        }}
+      />
+      {/* <div className="max-w-xs rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"> */}
+      <div className="max-w-xs rounded-lg  overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+        <div className=" overflow-hidden relative ">
           <Link
             href={`/product/${product.id}`}
             style={{ textDecoration: "none" }}

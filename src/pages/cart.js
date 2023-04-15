@@ -5,7 +5,7 @@ import Layout from "../../components/Layout";
 const CartPage = () => {
   return (
     <Layout>
-      <div className="h-screen pt-48 pb-24 bg-[#15202b]">
+      <div className="min-h-full pt-48 pb-80 bg-[#15202b]">
         <Cart />
       </div>
     </Layout>

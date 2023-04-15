@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { toast } from "react-hot-toast";
 
 export const CartContext = createContext();
 
@@ -115,6 +116,24 @@ const CartProvider = ({ children }) => {
   //   // Cookies.set("cart", JSON.stringify([...cart, product]));
   // };
 
+  const notify = () =>
+    toast.success("item added to cart", {
+      duration: 4000,
+      position: "bottom-center",
+
+      // Styling
+      style: {},
+      className: "",
+
+      // Custom Icon
+
+      // Aria
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
+
   const addToCart = (addedProduct) => {
     const existingItemIndex = cart.findIndex(
       (item) => item.id === addedProduct.id
@@ -132,6 +151,7 @@ const CartProvider = ({ children }) => {
       setCart([...cart, product]);
       Cookies.set("cart", JSON.stringify([...cart, product])); // pass [...cart, product] to Cookies.set()
     }
+    notify();
   };
 
   const removeFromCart = (id) => {

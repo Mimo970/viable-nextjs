@@ -82,6 +82,9 @@ const OrderDetails = () => {
 
   console.log(orderDetails, toTimestamp(orderDetails));
 
+  // let orderTotal = orderDetails.total + collectedTax + 12.99;
+  // let priceOfOrderTotal = orderTotal.toFixed(2);
+
   return (
     <Layout>
       <div className="pt-42 py-36 bg-[#15202B] min-h-screen">
@@ -151,7 +154,7 @@ const OrderDetails = () => {
                   name="quantity"
                   className="border rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
                 >
-                  {cart.map((item) => (
+                  {orderDetails.orderItems?.map((item) => (
                     <OrderedItems
                       product={item}
                       className="text-red-400"
@@ -180,11 +183,12 @@ const OrderDetails = () => {
                   <div className="flex flex-col  ">
                     <h1 className="text-white">Order Summary</h1>
                     <div className="flex text-[#8899A6]">
-                      <div>Items:</div>&nbsp; <div>${total}</div>
+                      <div>Items:</div>&nbsp;{" "}
+                      <div>${orderDetails.itemsPrice}</div>
                     </div>
                     <div className="flex text-[#8899A6] border-b w-fit py-2">
                       <div>Total before tax:</div>&nbsp;
-                      <div>${total}</div>
+                      <div>${orderDetails.itemsPrice + 12.99}</div>
                     </div>
                     <div className="flex text-[#8899A6]  py-1">
                       <div>Shipping and handling:</div>&nbsp;
@@ -198,7 +202,7 @@ const OrderDetails = () => {
                       htmlFor="total"
                       className="text-lg block text-blue-500 font-bold mb-2"
                     >
-                      Order total: ${total + collectedTax + 12.99}
+                      Order total: ${orderDetails.totalPrice}
                     </label>
                   </div>
                 </div>

@@ -9,6 +9,7 @@ import Image from "next/image";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import OrderedItems from "../../components/orderedItems";
+import { AuthContext } from "../../contexts/AuthContext";
 const OrderPage = () => {
   const router = useRouter();
 
@@ -21,6 +22,9 @@ const OrderPage = () => {
     cart,
     total,
   } = useContext(CartContext);
+
+  const { currentUser } = useContext(AuthContext);
+
   const [loading, setLoading] = useState(false);
   const [addressData, setAddressData] = useState([]);
   const [paymentData, setPaymentData] = useState([]);
@@ -120,17 +124,11 @@ const OrderPage = () => {
         shippingPrice: 12.99,
         taxPrice: collectedTax,
         totalPrice: total + collectedTax + 12.99,
+        userID: currentUser.uid,
       });
 
       setLoading(false);
-      setCart([]);
-      Cookies.set(
-        "cart",
-        JSON.stringify({
-          ...cart,
-          cart: [],
-        })
-      );
+      // setCart([]);
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -150,7 +148,8 @@ const OrderPage = () => {
       console.log(response);
       window.location = response.data.sessionURL;
 
-      placeOrderHandler(orderId); // Call placeOrderHandler at the end with orderId
+      placeOrderHandler(orderId);
+      Cookies.set("cart", JSON.stringify([])); // Call placeOrderHandler at the end with orderId
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -159,10 +158,13 @@ const OrderPage = () => {
 
   console.log(addressData);
 
+  let orderTotal = total + collectedTax + 12.99;
+  let priceOfOrderTotal = orderTotal.toFixed(2);
+
   return (
     <Layout>
       <div className="pt-42 py-36 bg-[#15202B] min-h-screen">
-        <div className="mx-24">
+        <div className="mx-48">
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             <Breadcrumb.Item href="/cart">Cart</Breadcrumb.Item>
@@ -245,7 +247,7 @@ const OrderPage = () => {
                 <div
                   id="quantity"
                   name="quantity"
-                  className="border rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                  className=" rounded-lg  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
                 >
                   {cart.map((item) => (
                     <OrderedItems key={item.id} product={item}>
@@ -272,11 +274,11 @@ const OrderPage = () => {
                   <div className="flex flex-col  ">
                     <h1 className="text-white">Order Summary</h1>
                     <div className="flex text-[#8899A6]">
-                      <div>Items:</div>&nbsp; <div>${total}</div>
+                      <div>Items:</div>&nbsp; <div>${total.toFixed(2)}</div>
                     </div>
                     <div className="flex text-[#8899A6] border-b w-fit py-2">
                       <div>Total before tax:</div>&nbsp;
-                      <div>${total}</div>
+                      <div>${total.toFixed(2)}</div>
                     </div>
                     <div className="flex text-[#8899A6]  py-1">
                       <div>Shipping and handling:</div>&nbsp;
@@ -290,7 +292,7 @@ const OrderPage = () => {
                       htmlFor="total"
                       className="text-lg block text-blue-500 font-bold mb-2"
                     >
-                      Order total: ${total + collectedTax + 12.99}
+                      Order total: ${priceOfOrderTotal}
                     </label>
                   </div>
                 </div>

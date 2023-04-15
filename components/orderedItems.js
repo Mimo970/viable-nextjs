@@ -23,7 +23,7 @@ const OrderedItems = ({ product }) => {
           </span>
         </div>
       </div>
-      <div className="px-2 py-1 bg-[#22303c]">
+      <div className="px-2 py-1 bg-[#15202B]">
         <Link
           href={`/product/${product.id}`}
           style={{ textDecoration: "none" }}

@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import { checkout } from "@/pages/checkout";
 import axios from "axios";
+import { Router, useRouter } from "next/router";
 const Cart = () => {
   const {
     cart,
@@ -15,6 +16,8 @@ const Cart = () => {
   } = useContext(CartContext);
 
   const [allCartItems, setAllCartItems] = useState([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     // Save the cart to cookies whenever it changes
@@ -71,7 +74,7 @@ const Cart = () => {
         <span className="mx-4 text-gray-300">{item.amount}</span>
         <div className=" text-gray-300">Qty:&nbsp; </div>
         <select
-          className="text-black bg-white"
+          className="text-gray-400 bg-[#22303C]"
           value={item.quantity}
           onChange={(e) => handleAmountChange(e.target.value, item.id)}
         >
@@ -99,10 +102,14 @@ const Cart = () => {
           return accumulator + currentItem.price * currentItem.amount;
         }, 0)
       : 0;
+
+  const proceedToShipping = () => {
+    cart.length > 0 ? router.push("/shipping") : alert("llollaa");
+  };
   // console.log(total);
   //  mt-24 pt-24 pb-24
   return (
-    <div className="bg-[#192734] pt-12 pb-12 container mx-auto rounded-lg">
+    <div className="bg-[#192734] py-4 container mx-auto rounded-lg  ">
       <div className="bg-[#22303C] shadow-lg rounded-lg">
         <div className="flex items-center justify-between   px-6 py-4">
           <h2 className="text-2xl text-white font-medium">Shopping Cart</h2>
@@ -110,7 +117,17 @@ const Cart = () => {
             {cart.reduce((total, item) => total + item.amount, 0)} items
           </span>
         </div>
-        {cartItems}
+
+        {cartItems.length > 0 ? (
+          cartItems
+        ) : (
+          <>
+            <h2 className="text-gray-400 px-2"> Your Viable Cart is empty. </h2>
+            <Link className="px-2 no-underline" href={"/"}>
+              Continue shopping
+            </Link>
+          </>
+        )}
         <div className=" p-4 flex justify-end items-center">
           <div className="flex flex-col  bg-gray-700 p-4 rounded-lg">
             <div className="flex">
@@ -128,12 +145,12 @@ const Cart = () => {
               >
                 Proceed to checkout
               </button> */}
-              <Link
-                href={"/shipping"}
+              <button
+                onClick={proceedToShipping}
                 className="no-underline bg-[#009BF9] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
               >
                 Proceed to shipping
-              </Link>
+              </button>
             </div>
           </div>
         </div>
