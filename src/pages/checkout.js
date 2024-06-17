@@ -19,3 +19,23 @@ export async function checkout({ lineItems }) {
     cancelUrl: window.location.origin,
   });
 }
+
+// pages / checkout.js;
+// import { useEffect } from "react";
+// import { initiateCheckout } from "../services/checkout";
+
+// const CheckoutPage = () => {
+//   useEffect(() => {
+//     // Replace with your actual line items for Stripe Checkout
+//     const lineItems = [
+//       // Example line items, replace with your actual logic
+//       { price: "price_1A2BCD", quantity: 1 },
+//     ];
+
+//     initiateCheckout({ lineItems });
+//   }, []);
+
+//   return <div>Redirecting to Stripe Checkout...</div>;
+// };
+
+// export default CheckoutPage;

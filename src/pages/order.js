@@ -221,7 +221,7 @@ const OrderPage = () => {
                     and conditions of use.
                   </div>
                   <div className="flex flex-col  ">
-                    <h1 className="text-white">Order Summary</h1>
+                    <h1 className="text-black">Order Summary</h1>
                     <div className="flex text-[#8899A6]">
                       <div>Items:</div>&nbsp; <div>${total.toFixed(2)}</div>
                     </div>
@@ -235,7 +235,7 @@ const OrderPage = () => {
                     </div>
                     <div className="flex text-[#8899A6]  py-1">
                       <div>Estimated tax to be colected:</div>&nbsp;
-                      <div>${collectedTax}</div>
+                      <div>${collectedTax.toFixed(2)}</div>
                     </div>
                     <label
                       htmlFor="total"

@@ -9,6 +9,7 @@ import { CartContext } from "../../../contexts/CartContext";
 import ReviewItems from "../../../components/ReviewItems";
 import dynamic from "next/dynamic";
 import OrderedItems from "../../../components/orderedItems";
+import order from "../order";
 
 const OrderDetails = () => {
   const router = useRouter();
@@ -80,7 +81,7 @@ const OrderDetails = () => {
     return datum / 1000;
   }
 
-  console.log(orderDetails, toTimestamp(orderDetails));
+  console.log(orderDetails.orderItems?.length);
 
   // let orderTotal = orderDetails.total + collectedTax + 12.99;
   // let priceOfOrderTotal = orderTotal.toFixed(2);
@@ -93,6 +94,7 @@ const OrderDetails = () => {
 
   let orderTotal = total + collectedTax + 12.99;
   let priceOfOrderTotal = formatToTwoDecimalPlaces(orderTotal);
+  // let orderTax = formatToTwoDecimalPlaces(orderDetails.taxPrice);
 
   console.log(addressData);
 
@@ -151,14 +153,16 @@ const OrderDetails = () => {
               </div>
               <div className="mb-4 border-t border-zinc-500">
                 <h1 className="block text-black font-bold mb-2">
-                  ({cart?.reduce((total, item) => total + item.amount, 0)})
+                  {/* ({cart?.reduce((total, item) => total + item.amount, 0)}) */}
                   Order Placed:
                 </h1>
                 <label
                   htmlFor="items"
-                  className="block text-black font-bold mb-2"
+                  className="block text-black font-bold mb-2 flex"
                 >
-                  Items Shipped from Viable
+                  <p className="mr-1">{orderDetails.orderItems?.length}</p>
+
+                  <p>Item(s) Shipped from Viable</p>
                 </label>
                 <div
                   id="quantity"
@@ -215,7 +219,7 @@ const OrderDetails = () => {
                     >
                       Order total: $
                       {/* {formatToTwoDecimalPlaces(orderDetails.totalPrice)} */}
-                      {orderDetails.totalPrice}
+                      {priceOfOrderTotal}
                     </label>
                   </div>
                 </div>
