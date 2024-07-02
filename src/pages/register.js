@@ -84,10 +84,14 @@ const RegisterPage = () => {
         }
       );
     } catch (authError) {
-      setError(true);
-      console.error("Error creating user:", authError);
+      setError(authError.message);
+
+      console.error("Error creating user:", authError.message);
+      // console.log(error.message);
     }
   };
+
+  console.log(error);
 
   return (
     <div className="bg-[#fafafa] text-black h-screen flex justify-center items-center">
@@ -155,7 +159,12 @@ const RegisterPage = () => {
           Register
         </button>
 
-        {error && <p className="text-red-500 mt-4">{error}</p>}
+        {/* {error !== false && <p className="text-red-500 mt-4">{error}</p>} */}
+        {error === "Firebase: Error (auth/email-already-in-use)." && (
+          <div className="flex bg-red-500 text-white p-2 mb-4 mt-4 rounded-lg  ">
+            Email already in use
+          </div>
+        )}
 
         <p>
           Already have an account? &nbsp;

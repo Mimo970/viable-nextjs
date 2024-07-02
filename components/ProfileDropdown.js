@@ -28,7 +28,8 @@ function ProfileDropdown() {
   return (
     <div className="d-inline-block">
       <img
-        className="w-12 rounded-full "
+        // className="w-12 rounded-full "
+        className="w-12 h-12 object-cover rounded-full"
         src={currentUser?.photoURL}
         // src={user.photoURL}
         alt="Dropdown Image"
